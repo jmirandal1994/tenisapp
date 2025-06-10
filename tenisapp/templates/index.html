@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Partidos de Tenis del Día</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #121212;
+      color: #e0e0e0;
+      margin: 0;
+      padding: 0;
+    }
+
+    header {
+      background-color: #1e88e5;
+      padding: 20px;
+      text-align: center;
+      color: white;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 30px auto;
+      padding: 20px;
+    }
+
+    .card {
+      background-color: #1f1f1f;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: 0 0 15px rgba(30, 136, 229, 0.2);
+    }
+
+    .title {
+      font-size: 20px;
+      margin-bottom: 10px;
+      color: #90caf9;
+    }
+
+    .torneo {
+      margin-left: 15px;
+      margin-top: 4px;
+      font-size: 15px;
+    }
+
+    .importante {
+      color: #81c784;
+    }
+
+    .noimportante {
+      color: #b0bec5;
+    }
+
+    a {
+      color: #64b5f6;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    .divider {
+      border-top: 1px solid #424242;
+      margin: 15px 0;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>🎾 Partidos de Tenis del Día</h1>
+  </header>
+
+  <div class="container">
+    {% for p in partidos %}
+      <div class="card">
+        <div class="title">{{ p.jugador_1 }} vs {{ p.jugador_2 }}</div>
+
+        <div class="divider"></div>
+
+        <div><strong>{{ p.jugador_1 }}</strong> - <a href="{{ p.link_1 }}" target="_blank">Ver perfil</a></div>
+        {% for t in p.torneos_1 %}
+          <div class="torneo {% if t.es_importante %}importante{% else %}noimportante{% endif %}">
+            • {{ t.fecha }} - {{ t.torneo }}
+          </div>
+        {% endfor %}
+
+        <div class="divider"></div>
+
+        <div><strong>{{ p.jugador_2 }}</strong> - <a href="{{ p.link_2 }}" target="_blank">Ver perfil</a></div>
+        {% for t in p.torneos_2 %}
+          <div class="torneo {% if t.es_importante %}importante{% else %}noimportante{% endif %}">
+            • {{ t.fecha }} - {{ t.torneo }}
+          </div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+  </div>
+</body>
+</html>
